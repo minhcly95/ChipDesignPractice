@@ -1,2 +1,3 @@
 *.gtkw
 out/
+obj_dir/
