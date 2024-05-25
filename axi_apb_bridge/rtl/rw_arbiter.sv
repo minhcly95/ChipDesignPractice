@@ -1,6 +1,7 @@
 module rw_arbiter(
     input logic clk,
     input logic reset_n,
+    input logic p_clk_en,
     input logic w_req,
     input logic r_req,
     input logic done,
@@ -15,7 +16,7 @@ module rw_arbiter(
     always_ff @(posedge clk or negedge reset_n) begin
         if (~reset_n)
             state <= S_IDLE;
-        else
+        else if (p_clk_en)
             state <= next_state;
     end
 

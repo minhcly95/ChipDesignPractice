@@ -43,6 +43,7 @@ Same as write request but for `R` and `B` channels.
 #### R/W arbiter
 This module allocates the use of APB controller to process either the read or the write request.
 It is a round-robin arbiter, implemented as the following FSM (dashed lines are default transitions).
+Transitions only happen when `PCLK_EN` is asserted.
 
 ![](figures/rwarbiter.png)
 

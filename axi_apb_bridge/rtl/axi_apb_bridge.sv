@@ -124,7 +124,7 @@ module axi_apb_bridge #(
     assign req = w_req | r_req;
 
     // Arbiter logic
-    rw_arbiter arbiter(a_clk, a_reset_n, w_req, r_req, done, w_grant, r_grant);
+    rw_arbiter arbiter(a_clk, a_reset_n, p_clk_en, w_req, r_req, done, w_grant, r_grant);
     assign w_done = done & w_grant;
     assign r_done = done & r_grant;
 
