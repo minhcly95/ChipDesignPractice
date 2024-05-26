@@ -11,6 +11,9 @@ This is a simple register module that stores data via APB protocol.
 - `PADDR` must be in the address space. Out-of-range address raises an error.
 - `PADDR` must be word-aligned. Unaligned address raises an error.
 
+## Block diagram
+![](figures/diagram.png)
+
 ## Customization
 The size and address can be adjusted with the `NumWords` and `BaseAddr` parameters.
 The address space is `4 * NumWords` bytes (since there are 4 bytes in a word), starting from `BaseAddr`.

@@ -8,3 +8,6 @@ run:
 
 wave:
 	gtkwave out/wave.vcd
+
+figure:
+	convert -alpha remove figures/diagram.ps figures/diagram.png
