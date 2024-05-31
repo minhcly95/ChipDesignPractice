@@ -1,3 +1,4 @@
 *.gtkw
+*.o
 out/
 obj_dir/
