@@ -5,7 +5,12 @@ module riscv #(
     input logic reset,
     // I-mem
     output logic[31:0] pc,
-    input logic[31:0] instr
+    input logic[31:0] instr,
+    // D-mem
+    output logic[31:0] d_addr,
+    output logic[31:0] d_wdata,
+    output logic[3:0] d_wstrb,
+    input logic[31:0] d_rdata
 );
     // ----------------- Signals ---------------------
     // Instruction
@@ -14,13 +19,16 @@ module riscv #(
     logic funct7_5;
 
     // Controls
+    logic[2:0] imm_sel;
     logic src_a_sel;
-    logic[1:0] src_b_sel;
+    logic src_b_sel;
     logic[2:0] alu_func;
     logic shamt_sel;
     logic[1:0] shift_op;
-    logic[1:0] dest_sel;
+    logic mem_write;
+    logic[2:0] mem_size;
     logic reg_write;
+    logic[1:0] regd_sel;
 
     // ---------------- Structure --------------------
     datapath #(BootVector) dp(.*);

@@ -1,3 +1,8 @@
+FIGURE = diagram.png controller.png alu.png shifter.png dmem.png
+ASM = fibonacci.bin basic_test.bin
+
+.PHONY: all build run wave build-asm figure
+
 all: build run
 
 build:
@@ -9,12 +14,13 @@ run:
 wave:
 	gtkwave out/wave.vcd
 
-build-asm:
-	riscv64-linux-gnu-as -march=rv32i -o asm/fibonacci.o asm/fibonacci.s
-	riscv64-linux-gnu-objcopy -j .text -O binary asm/fibonacci.o asm/fibonacci.bin
+build-asm: $(addprefix asm/,$(ASM))
 
-figure:
-	convert -alpha remove figures/diagram.ps figures/diagram.png
-	convert -alpha remove figures/controller.ps figures/controller.png
-	convert -alpha remove figures/alu.ps figures/alu.png
-	convert -alpha remove figures/shifter.ps figures/shifter.png
+asm/%.bin: asm/%.s
+	riscv64-linux-gnu-as -march=rv32i -o asm/$*.o $<
+	riscv64-linux-gnu-objcopy -j .text -O binary asm/$*.o $@
+
+figure: $(addprefix figures/,$(FIGURE))
+
+figures/%.png: figures/%.ps
+	convert -alpha remove $< $@

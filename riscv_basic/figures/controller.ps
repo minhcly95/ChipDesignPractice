@@ -1,9 +1,9 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Title: controller.ps
-%%Creator: XCircuit v0.0 rev-1437237228
-%%CreationDate: Fri May 31 15:15:51 2024
+%%Creator: XCircuit v0.0 rev-282869740
+%%CreationDate: Sat Jun  1 10:03:56 2024
 %%Pages: 1
-%%BoundingBox: 68 68 461 247
+%%BoundingBox: 68 68 485 247
 %%DocumentNeededResources: font Helvetica Times-Roman 
 %%EndComments
 %%BeginProlog
@@ -220,20 +220,18 @@ endgate
 %%PageOrientation: Portrait
 /pgsave save def bop
 1.0000 inchscale
-2.6000 setlinewidth 767 602 translate
+2.6000 setlinewidth 831 602 translate
 
 (Main) {/Helvetica cf} 2 17 0.000 1.000 -96 -48 label
 (Decoder) {/Helvetica cf} 2 17 0.000 1.000 -96 -96 label
 0 1.000 -224 48 -224 -176 32 -176 32 48 4 polygon
-1 1.000 -240 0 -432 0 2 polygon
-(Opcode) {/Helvetica cf} 2 23 0.000 0.800 -448 0 label
-(Funct3) {/Helvetica cf} 2 23 0.000 0.800 -448 -64 label
-(Funct7[5]) {/Helvetica cf} 2 23 0.000 0.800 -448 -128 label
+1 1.000 -240 0 -496 0 2 polygon
+(Opcode) {/Helvetica cf} 2 23 0.000 0.800 -512 0 label
+(Funct3) {/Helvetica cf} 2 23 0.000 0.800 -512 -64 label
+(Funct7[5]) {/Helvetica cf} 2 23 0.000 0.800 -512 -128 label
 1.000 90.000 -224 0 generic::arrowhead
 1.000 90.000 -224 -64 generic::arrowhead
-1.000 90.000 -224 -128 generic::arrowhead
-1 1.000 -240 -64 -432 -64 2 polygon
-1 1.000 -240 -128 -432 -128 2 polygon
+1 1.000 -240 -64 -496 -64 2 polygon
 -1.000 180.000 176 -288 ::mux2
 (ALUSet) {/Helvetica cf} 2 20 0.000 0.800 192 -128 label
 (OtherControls) {/Helvetica cf} 2 20 0.000 0.800 144 0 label
@@ -259,15 +257,18 @@ endgate
 (ALU) {/Helvetica cf} 2 17 0.000 1.000 -160 -288 label
 (Dec) {/Helvetica cf} 2 17 0.000 1.000 -160 -336 label
 0 1.000 -96 -240 -96 -368 -224 -368 -224 -240 4 polygon
-1 1.000 -320 -128 -320 -336 -240 -336 3 polygon
 1 1.000 -96 -304 128 -304 2 polygon
 1.000 90.000 -224 -272 generic::arrowhead
 1.000 90.000 -224 -336 generic::arrowhead
-1.000 0.000 -320 -128 generic::dot
 (Recode) {/Helvetica cf} 2 28 0.000 0.800 -144 -192 label
 1 1.000 -160 -176 -160 -224 2 polygon
 -1.000 180.000 -160 -240 generic::arrowhead
 (ALUCode) {/Helvetica cf} 2 28 0.000 0.800 -80 -320 label
+1 1.000 -448 -64 -448 -176 2 polygon
+-1.000 180.000 -448 -192 generic::arrowhead
+(MemSize) {/Helvetica cf} 2 29 0.000 0.800 -448 -208 label
+1.000 0.000 -448 -64 generic::dot
+1 1.000 -496 -128 -320 -128 -320 -336 -240 -336 4 polygon
 pgsave restore showpage
 
 %%Trailer
