@@ -150,3 +150,96 @@ _start:
     sw    x3, 212(x31)
     lhu   x3, 186(x31)       # Should be 0x0000d515
     sw    x3, 216(x31)
+    # ----------------- JUMP ------------------
+    # JAL
+    li    x3, 0x10
+    sw    x3, 220(x31)
+    jal   x4, jal_target
+    sb    x1, 221(x31)       # Should skip
+jal_target:
+    sb    x1, 222(x31)       # Should be 0x00320010
+    sw    x4, 224(x31)       # Should be 0x000001e0
+    # JALR
+    li    x3, 0x11
+    sw    x3, 228(x31)
+    auipc x4, 0
+    jalr  x5, 12(x4)
+    sb    x2, 229(x31)       # Should skip
+jalr_target:
+    sb    x2, 230(x31)       # Should be 0x00e30011
+    sw    x5, 232(x31)       # Should be 0x000001fc
+    # ---------------- BRANCH -----------------
+    # BEQ
+    li    x3, 0x12
+    sw    x3, 236(x31)
+    mv    x4, x1
+    beq   x1, x2, beq1
+    sb    x1, 237(x31)       # Should take
+beq1:
+    beq   x2, x1, beq2
+    sb    x1, 238(x31)       # Should take
+beq2:
+    beq   x1, x4, beq3
+    sb    x1, 239(x31)       # Should skip
+beq3:                        # Should be 0x00323212
+    # BNE
+    li    x3, 0x13
+    sw    x3, 240(x31)
+    bne   x1, x2, bne1
+    sb    x2, 241(x31)       # Should skip
+bne1:
+    bne   x2, x1, bne2
+    sb    x2, 242(x31)       # Should skip
+bne2:
+    bne   x1, x4, bne3
+    sb    x2, 243(x31)       # Should take
+bne3:                        # Should be 0xe3000013
+    # BLT
+    li    x3, 0x14
+    sw    x3, 244(x31)
+    blt   x1, x2, blt1
+    sb    x1, 245(x31)       # Should skip
+blt1:
+    blt   x2, x1, blt2
+    sb    x1, 246(x31)       # Should take
+blt2:
+    blt   x1, x4, blt3
+    sb    x1, 247(x31)       # Should take
+blt3:                        # Should be 0x32320014
+    # BGE
+    li    x3, 0x15
+    sw    x3, 248(x31)
+    bge   x1, x2, bge1
+    sb    x2, 249(x31)       # Should take
+bge1:
+    bge   x2, x1, bge2
+    sb    x2, 250(x31)       # Should skip
+bge2:
+    bge   x1, x4, bge3
+    sb    x2, 251(x31)       # Should skip
+bge3:                        # Should be 0x0000e315
+    # BLTU
+    li    x3, 0x16
+    sw    x3, 252(x31)
+    bltu  x1, x2, bltu1
+    sb    x1, 253(x31)       # Should take
+bltu1:
+    bltu  x2, x1, bltu2
+    sb    x1, 254(x31)       # Should skip
+bltu2:
+    bltu  x1, x4, bltu3
+    sb    x1, 255(x31)       # Should take
+bltu3:                       # Should be 0x32003216
+    # BGEU
+    li    x3, 0x17
+    sw    x3, 256(x31)
+    bgeu  x1, x2, bgeu1
+    sb    x2, 257(x31)       # Should skip
+bgeu1:
+    bgeu  x2, x1, bgeu2
+    sb    x2, 258(x31)       # Should take
+bgeu2:
+    bgeu  x1, x4, bgeu3
+    sb    x2, 259(x31)       # Should skip
+bgeu3:                       # Should be 0x00e30017
+    ecall

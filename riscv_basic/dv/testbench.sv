@@ -8,7 +8,7 @@ module testbench();
     logic[3:0] d_wstrb;
     logic[31:0] d_rdata;
 
-    logic[31:0] basic_test_results[55];
+    logic[31:0] basic_test_results[65];
 
     // ------------------ Device under test --------------------
     riscv dut(.*);
@@ -23,7 +23,7 @@ module testbench();
         imem.load("basic_test");
         reset_dut();
         #2000;
-        for (int i = 0; i < 55; i++) begin
+        for (int i = 0; i < 65; i++) begin
             if (dmem.mem[i] !== basic_test_results[i])
             $display("Wrong value at addr %3d: %8h (expected %8h)", i * 4, dmem.mem[i], basic_test_results[i]);
         end

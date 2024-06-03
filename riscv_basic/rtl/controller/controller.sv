@@ -10,10 +10,14 @@ module controller(
     output logic[2:0] alu_func,
     output logic shamt_sel,
     output logic[1:0] shift_op,
+    output logic exec_sel,
     output logic mem_write,
     output logic[2:0] mem_size,
     output logic reg_write,
-    output logic[1:0] regd_sel
+    output logic[1:0] regd_sel,
+    output logic jump,
+    output logic branch,
+    output logic branch_neg
 );
     // ----------------- Signals ---------------------
     logic recode;

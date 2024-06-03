@@ -10,6 +10,7 @@ rtl/datapath/dmem/lane_dec.sv
 rtl/datapath/dmem/read_shifter.sv
 rtl/datapath/dmem/write_shifter.sv
 rtl/datapath/alu.sv
+rtl/datapath/branch_adder.sv
 rtl/datapath/datapath.sv
 rtl/datapath/imm_dec.sv
 rtl/datapath/instr_dec.sv

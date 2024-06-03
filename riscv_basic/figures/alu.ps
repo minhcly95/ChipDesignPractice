@@ -1,7 +1,7 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Title: alu.ps
-%%Creator: XCircuit v0.0 rev128323604
-%%CreationDate: Thu May 30 15:05:26 2024
+%%Creator: XCircuit v0.0 rev1107808276
+%%CreationDate: Sun Jun  2 20:21:33 2024
 %%Pages: 1
 %%BoundingBox: 68 68 534 394
 %%DocumentNeededResources: font Helvetica Times-Roman 
@@ -191,14 +191,6 @@ begingate
 endgate
 } def
 
-/::mux2 {
-begingate
-(0) {/Helvetica cf} 2 21 0.000 0.800 -16 16 label
-(1) {/Helvetica cf} 2 21 0.000 0.800 -16 -16 label
-1 1.000 -32 48 -32 -48 32 -16 32 16 -32 48 5 polygon
-endgate
-} def
-
 /generic::dot {
 % trivial
 begingate
@@ -261,6 +253,14 @@ begingate
 endgate
 } def
 
+/::mux2 {
+begingate
+(0) {/Helvetica cf} 2 21 0.000 0.800 -16 16 label
+(1) {/Helvetica cf} 2 21 0.000 0.800 -16 -16 label
+1 1.000 -32 48 -32 -48 32 -16 32 16 -32 48 5 polygon
+endgate
+} def
+
 /::sign {
 begingate
 0 1.000 -48 32 -48 -32 48 -32 48 32 4 polygon
@@ -298,38 +298,32 @@ endgate
 
 1.000 0.000 -16 0 ::adder
 1 1.000 -64 48 -336 48 2 polygon
-1.000 0.000 -160 -48 ::mux2
-1 1.000 -128 -48 -64 -48 2 polygon
-1.000 0.000 -240 -32 generic::dot
+1.000 0.000 -272 -64 generic::dot
 (A) {/Helvetica cf} 2 23 0.000 1.000 -352 48 label
-(B) {/Helvetica cf} 2 23 0.000 1.000 -352 -32 label
+(B) {/Helvetica cf} 2 23 0.000 1.000 -352 -64 label
 1.000 0.000 0 -512 digital::and
 1.000 0.000 -16 -384 digital::or
 1.000 0.000 -16 -256 digital::xor
-1 1.000 -160 -16 -160 112 32 112 3 polygon
 1.000 0.000 -16 112 generic::dot
 1 1.000 32 0 672 0 2 polygon
-1 1.000 -240 -32 -240 -528 -64 -528 3 polygon
-1 1.000 -48 -400 -240 -400 2 polygon
-1 1.000 -64 -272 -240 -272 2 polygon
-1.000 0.000 -240 -272 generic::dot
-1.000 0.000 -240 -400 generic::dot
-1 1.000 -272 48 -272 -496 -64 -496 3 polygon
-1 1.000 -48 -368 -272 -368 2 polygon
-1 1.000 -64 -240 -272 -240 2 polygon
-1.000 0.000 -272 -240 generic::dot
-1.000 0.000 -272 -368 generic::dot
-1.000 0.000 -272 48 generic::dot
+1 1.000 -272 -64 -272 -528 -64 -528 3 polygon
+1 1.000 -48 -400 -272 -400 2 polygon
+1 1.000 -64 -272 -272 -272 2 polygon
+1.000 0.000 -272 -272 generic::dot
+1.000 0.000 -272 -400 generic::dot
+1 1.000 -304 48 -304 -496 -64 -496 3 polygon
+1 1.000 -48 -368 -304 -368 2 polygon
+1 1.000 -64 -240 -304 -240 2 polygon
+1.000 0.000 -304 -240 generic::dot
+1.000 0.000 -304 -368 generic::dot
+1.000 0.000 -304 48 generic::dot
 (F[1] | F[0]) {/Helvetica cf} 2 20 0.000 1.000 48 112 label
 1.000 0.000 256 -144 ::mux4
 1 1.000 224 -192 144 -192 144 -80 3 polygon
 1 1.000 224 -96 144 -96 2 polygon
 1.000 0.000 144 -96 generic::dot
 1.000 0.000 144 0 generic::dot
-1 1.000 -200 -64 8 0.000 360.000 xcarc
-1 1.000 -192 -32 -336 -32 2 polygon
-1 1.000 -208 -64 -240 -64 2 polygon
-1.000 0.000 -240 -64 generic::dot
+1 1.000 -208 -64 -336 -64 2 polygon
 1 1.000 216 -160 8 0.000 360.000 xcarc
 1 1.000 208 -160 176 -160 176 -128 3 polygon
 1 1.000 224 -128 64 -128 2 polygon
@@ -349,8 +343,8 @@ endgate
 1.000 0.000 144 -48 ::sign
 1.000 0.000 -16 192 ::sign
 1.000 0.000 -16 256 ::sign
-1 1.000 -64 192 -240 192 -240 -32 3 polygon
-1 1.000 -272 48 -272 256 -64 256 3 polygon
+1 1.000 -64 192 -272 192 -272 -64 3 polygon
+1 1.000 -304 48 -304 256 -64 256 3 polygon
 1 1.000 -16 64 -16 112 2 polygon
 1 1.000 736 -48 800 -48 2 polygon
 (S) {/Helvetica cf} 2 20 0.000 1.000 816 -48 label
@@ -364,6 +358,9 @@ endgate
 1 1.000 144 240 128 208 2 polygon
 1.000 135.000 96 224 generic::arrowhead
 1.000 45.000 96 224 generic::arrowhead
+1.000 0.000 -160 -48 digital::xor
+1 1.000 -96 -48 -64 -48 2 polygon
+1 1.000 32 112 -240 112 -240 -32 -208 -32 4 polygon
 pgsave restore showpage
 
 %%Trailer

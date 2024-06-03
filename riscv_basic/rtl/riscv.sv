@@ -25,10 +25,14 @@ module riscv #(
     logic[2:0] alu_func;
     logic shamt_sel;
     logic[1:0] shift_op;
+    logic exec_sel;
     logic mem_write;
     logic[2:0] mem_size;
     logic reg_write;
     logic[1:0] regd_sel;
+    logic jump;
+    logic branch;
+    logic branch_neg;
 
     // ---------------- Structure --------------------
     datapath #(BootVector) dp(.*);

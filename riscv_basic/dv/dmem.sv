@@ -5,10 +5,10 @@ module dmem(
     input logic[3:0] d_wstrb,
     output logic[31:0] d_rdata
 );
-    logic[31:0] mem[64];
-    logic[5:0] offset;
+    logic[31:0] mem[1024];
+    logic[9:0] offset;
 
-    assign offset = d_addr[7:2];
+    assign offset = d_addr[11:2];
     assign d_rdata = mem[offset];
 
     always_ff @(posedge clk) begin

@@ -10,7 +10,7 @@ module alu(
 
     // Subtraction control
     assign sub_en = f[0] | f[1];
-    assign bb = sub_en ? ~b : b;
+    assign bb = {32{sub_en}} ^ b;
 
     // Adder, XOR, OR, AND
     assign sum = a + bb + sub_en;

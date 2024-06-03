@@ -1,9 +1,9 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Title: shifter.ps
-%%Creator: XCircuit v0.0 rev1232437268
-%%CreationDate: Fri May 31 08:15:54 2024
+%%Creator: XCircuit v0.0 rev-1443528684
+%%CreationDate: Sun Jun  2 20:23:26 2024
 %%Pages: 1
-%%BoundingBox: 68 68 410 282
+%%BoundingBox: 68 68 380 282
 %%DocumentNeededResources: font Helvetica Times-Roman 
 %%EndComments
 %%BeginProlog
@@ -207,14 +207,6 @@ begingate
 endgate
 } def
 
-/::mux2 {
-begingate
-(0) {/Helvetica cf} 2 21 0.000 0.800 -16 16 label
-(1) {/Helvetica cf} 2 21 0.000 0.800 -16 -16 label
-1 1.000 -32 48 -32 -48 32 -16 32 16 -32 48 5 polygon
-endgate
-} def
-
 /generic::dot {
 % trivial
 begingate
@@ -236,10 +228,26 @@ begingate
 endgate
 } def
 
+/digital::xor {
+% trivial
+begingate
+1 1.000 -19 -48 96 30.000 90.000 xcarc
+1 1.000 -19 48 96 270.000 330.000 xcarc
+1 1.000 -128 0 80 -37.000 37.000 xcarc
+1 1.000 -112 0 80 -37.000 37.000 xcarc
+1 1.000 -48 48 -19 48 2 polygon
+1 1.000 -48 -48 -19 -48 2 polygon
+1.000 0.000 0.000 scb
+(Out) {/Times-Roman cf} 2 4 0.000 1.000 64 0 pinlabel
+(In.1) {/Times-Roman cf} 2 7 0.000 1.000 -56 32 pinlabel
+(In.2) {/Times-Roman cf} 2 7 0.000 1.000 -56 -32 pinlabel
+endgate
+} def
+
 
 %%EndSetup
 
-%%Page:  1
+%%Page: shifter 1
 %%PageOrientation: Portrait
 /pgsave save def bop
 1.0000 inchscale
@@ -253,42 +261,38 @@ endgate
 1 1.000 0 -192 256 -192 2 polygon
 (>> K) {/Helvetica cf} 2 21 0.000 1.000 128 -128 label
 (>> 1) {/Helvetica cf} 2 21 0.000 1.000 128 -224 label
--1.000 0.000 352 -224 digital::invert
--1.000 0.000 592 -80 digital::invert
--1.000 0.000 432 32 ::mux4
--1.000 0.000 432 -128 ::mux2
-1 1.000 400 -224 496 -224 2 polygon
-1 1.000 432 -224 432 -160 2 polygon
-1 1.000 400 -128 272 -128 2 polygon
-1 1.000 464 -144 720 -144 2 polygon
-1 1.000 528 -80 496 -80 496 -112 464 -112 4 polygon
-1 1.000 640 -80 656 -80 656 -144 3 polygon
-1.000 0.000 656 -144 generic::dot
-1.000 0.000 432 -224 generic::dot
-1 1.000 400 32 272 32 2 polygon
+-1.000 0.000 576 -224 digital::invert
+-1.000 0.000 352 32 ::mux4
+1 1.000 624 -224 640 -224 2 polygon
+1 1.000 320 -128 272 -128 2 polygon
+1 1.000 432 -112 640 -112 2 polygon
+1 1.000 320 32 272 32 2 polygon
 1 1.000 192 0 192 -48 2 polygon
 1 1.000 64 0 64 -48 2 polygon
 1 1.000 128 -256 128 -304 2 polygon
-1 1.000 464 -16 720 -16 2 polygon
-1 1.000 464 48 720 48 2 polygon
-1 1.000 464 80 512 80 512 112 720 112 4 polygon
-1 1.000 464 16 512 16 512 80 3 polygon
-1.000 0.000 512 80 generic::dot
-1 1.000 288 -224 272 -224 2 polygon
+1 1.000 384 -16 640 -16 2 polygon
+1 1.000 384 48 640 48 2 polygon
+1 1.000 384 80 432 80 432 112 640 112 4 polygon
+1 1.000 384 16 432 16 432 80 3 polygon
+1.000 0.000 432 80 generic::dot
 -1.000 270.000 256 -224 generic::arrowhead
 -1.000 270.000 256 -128 generic::arrowhead
 -1.000 270.000 256 32 generic::arrowhead
 -1.000 180.000 192 -64 generic::arrowhead
 -1.000 180.000 64 -64 generic::arrowhead
 -1.000 180.000 128 -320 generic::arrowhead
-(F[0]) {/Helvetica cf} 2 20 0.000 1.000 512 -224 label
-(ShAmt) {/Helvetica cf} 2 20 0.000 1.000 736 -144 label
-({Sign, A}) {/Helvetica cf} 2 20 0.000 1.000 736 -16 label
-({0, A}) {/Helvetica cf} 2 20 0.000 1.000 736 48 label
-({A, 0}) {/Helvetica cf} 2 20 0.000 1.000 736 112 label
-1 1.000 432 96 432 144 2 polygon
-(F[1:0]) {/Helvetica cf} 2 17 0.000 1.000 432 160 label
+(F[0]) {/Helvetica cf} 2 20 0.000 1.000 656 -224 label
+(ShAmt) {/Helvetica cf} 2 20 0.000 1.000 656 -112 label
+({Sign, A}) {/Helvetica cf} 2 20 0.000 1.000 656 -16 label
+({0, A}) {/Helvetica cf} 2 20 0.000 1.000 656 48 label
+({A, 0}) {/Helvetica cf} 2 20 0.000 1.000 656 112 label
+1 1.000 352 96 352 144 2 polygon
+(F[1:0]) {/Helvetica cf} 2 17 0.000 1.000 352 160 label
 (Y) {/Helvetica cf} 2 29 0.000 1.000 128 -336 label
+-1.000 0.000 384 -128 digital::xor
+1 1.000 272 -224 512 -224 2 polygon
+1 1.000 432 -144 480 -144 480 -224 3 polygon
+1.000 0.000 480 -224 generic::dot
 pgsave restore showpage
 
 %%Trailer

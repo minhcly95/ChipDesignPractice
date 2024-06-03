@@ -24,7 +24,7 @@ module shifter (
         endcase
 
     // Right shift amount
-    assign k = f[0] ? shamt : ~shamt;
+    assign k = {5{~f[0]}} ^ shamt;
 
     // Funnel
     assign d4 = k[4] ? bc[63:16] : bc[47:0];

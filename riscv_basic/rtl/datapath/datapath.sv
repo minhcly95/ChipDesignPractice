@@ -18,14 +18,21 @@ module datapath #(
     input logic[2:0] alu_func,
     input logic shamt_sel,
     input logic[1:0] shift_op,
+    input logic exec_sel,
     input logic mem_write,
     input logic[2:0] mem_size,
     input logic reg_write,
-    input logic[1:0] regd_sel
+    input logic[1:0] regd_sel,
+    input logic jump,
+    input logic branch,
+    input logic branch_neg
 );
     // ----------------- Signals ---------------------
     // Fetch
+    logic[31:0] pc4;
     logic[31:0] pc_next;
+    logic[31:0] pc_next2;
+    logic[31:0] pc_branch;
 
     // Decode
     logic[4:0] rs1;
@@ -43,12 +50,20 @@ module datapath #(
     logic[31:0] mem_res;
     logic[31:0] alu_res;
     logic[31:0] shift_res;
+    logic[31:0] exec_res;
     logic[31:0] reg_d;
+
+    // Branch logic
+    logic alu_zero;
+    logic branch_ok;
+    logic pc_sel;
 
     // ---------------- Structure --------------------
     // Fetch
     flopr #(32, BootVector) pc_reg(clk, reset, pc_next, pc);
-    pc_adder pc_adder(pc, pc_next);
+    pc_adder pc_adder(pc, pc4);
+    mux2 #(32) pc_mux2(pc4, pc_branch, pc_sel, pc_next2);
+    mux2 #(32) pc_mux1(pc_next2, alu_res, jump, pc_next);
 
     // Decode
     instr_dec instr_dec(instr, rd, rs1, rs2, shamt_imm);
@@ -63,6 +78,14 @@ module datapath #(
     mux2 #(5) shamt_mux(reg_b[4:0], shamt_imm, shamt_sel, shamt);
     shifter shifter(reg_a, shamt, shift_op, shift_res);
 
+    mux2 #(32) exec_mux(alu_res, shift_res, exec_sel, exec_res);
+    
+    // Branch logic
+    branch_adder branch_adder(pc, imm, pc_branch);
+    assign alu_zero = ~|alu_res;
+    assign branch_ok = alu_zero ^ branch_neg;
+    assign pc_sel = branch & branch_ok;
+
     // Memory
     dmem_ctrl dmem_ctrl(
         alu_res, reg_b, mem_res,
@@ -71,6 +94,6 @@ module datapath #(
     );
 
     // Write back
-    mux4 #(32) regd_mux(mem_res, alu_res, shift_res, imm, regd_sel, reg_d);
+    mux4 #(32) regd_mux(mem_res, exec_res, imm, pc4, regd_sel, reg_d);
 
 endmodule
