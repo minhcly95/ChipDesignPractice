@@ -29,9 +29,10 @@ module datapath #(
 );
     // ----------------- Signals ---------------------
     // Fetch
+    logic[31:0] pc1;
+    logic[31:0] pc2;
+    logic[31:0] pc3;
     logic[31:0] pc4;
-    logic[31:0] pc_next;
-    logic[31:0] pc_next2;
     logic[31:0] pc_branch;
 
     // Decode
@@ -60,10 +61,11 @@ module datapath #(
 
     // ---------------- Structure --------------------
     // Fetch
-    flopr #(32, BootVector) pc_reg(clk, reset, pc_next, pc);
+    flopr #(32, BootVector) pc_reg(clk, reset, pc1, pc);
     pc_adder pc_adder(pc, pc4);
-    mux2 #(32) pc_mux2(pc4, pc_branch, pc_sel, pc_next2);
-    mux2 #(32) pc_mux1(pc_next2, alu_res, jump, pc_next);
+    mux2 #(32) pc_mux2(pc4, pc_branch, pc_sel, pc3);
+    mux2 #(32) pc_mux1(pc3, alu_res, jump, pc2);
+    pc_mask pc_mask(pc2, pc1);
 
     // Decode
     instr_dec instr_dec(instr, rd, rs1, rs2, shamt_imm);

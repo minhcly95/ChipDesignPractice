@@ -16,6 +16,7 @@ rtl/datapath/imm_dec.sv
 rtl/datapath/instr_dec.sv
 rtl/datapath/lower_ext.sv
 rtl/datapath/pc_adder.sv
+rtl/datapath/pc_mask.sv
 rtl/datapath/reg_file.sv
 rtl/datapath/shifter.sv
 rtl/datapath/sign_ext.sv

@@ -163,7 +163,7 @@ jal_target:
     li    x3, 0x11
     sw    x3, 228(x31)
     auipc x4, 0
-    jalr  x5, 12(x4)
+    jalr  x5, 13(x4)         # Test if the LSB is ignored
     sb    x2, 229(x31)       # Should skip
 jalr_target:
     sb    x2, 230(x31)       # Should be 0x00e30011
