@@ -1,9 +1,9 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Title: controller.ps
-%%Creator: XCircuit v0.0 rev-282869740
-%%CreationDate: Sat Jun  1 10:03:56 2024
+%%Creator: XCircuit v0.0 rev-1874972652
+%%CreationDate: Tue Jun  4 09:14:43 2024
 %%Pages: 1
-%%BoundingBox: 68 68 485 247
+%%BoundingBox: 68 68 602 279
 %%DocumentNeededResources: font Helvetica Times-Roman 
 %%EndComments
 %%BeginProlog
@@ -234,24 +234,29 @@ endgate
 1 1.000 -240 -64 -496 -64 2 polygon
 -1.000 180.000 176 -288 ::mux2
 (ALUSet) {/Helvetica cf} 2 20 0.000 0.800 192 -128 label
-(OtherControls) {/Helvetica cf} 2 20 0.000 0.800 144 0 label
-1 1.000 112 0 32 0 2 polygon
-1.000 90.000 128 0 generic::arrowhead
+0.000 0.000 1.000 scb
+(OtherControls) {/Helvetica cf} 2 20 0.000 0.800 144 112 label
+1.000 90.000 128 112 generic::arrowhead
+sce
 1 1.000 128 -272 -16 -272 -16 -176 3 polygon
 1.000 90.000 144 -304 generic::arrowhead
 1 1.000 32 -128 176 -128 176 -240 3 polygon
 1.000 90.000 144 -272 generic::arrowhead
 -1.000 180.000 176 -256 generic::arrowhead
+0.000 0.000 1.000 scb
 1 1.000 208 -288 288 -288 2 polygon
 1.000 90.000 304 -288 generic::arrowhead
 (ALUFunc) {/Helvetica cf} 2 20 0.000 0.800 320 -288 label
+sce
 (ALUOp) {/Helvetica cf} 2 28 0.000 0.800 0 -192 label
 1 1.000 -240 -272 -288 -272 -288 -64 3 polygon
 1.000 0.000 -288 -64 generic::dot
+0.000 0.000 1.000 scb
 -1.000 180.000 -368 -368 generic::arrowhead
 (ShiftOp) {/Helvetica cf} 2 29 0.000 0.800 -368 -384 label
 1 1.000 -384 -64 -368 -80 -368 -352 3 polygon
 1 1.000 -384 -128 -368 -144 2 polygon
+sce
 1.000 0.000 -384 -128 generic::dot
 1.000 0.000 -384 -64 generic::dot
 (ALU) {/Helvetica cf} 2 17 0.000 1.000 -160 -288 label
@@ -264,11 +269,42 @@ endgate
 1 1.000 -160 -176 -160 -224 2 polygon
 -1.000 180.000 -160 -240 generic::arrowhead
 (ALUCode) {/Helvetica cf} 2 28 0.000 0.800 -80 -320 label
+0.000 0.000 1.000 scb
 1 1.000 -448 -64 -448 -176 2 polygon
 -1.000 180.000 -448 -192 generic::arrowhead
 (MemSize) {/Helvetica cf} 2 29 0.000 0.800 -448 -208 label
+sce
 1.000 0.000 -448 -64 generic::dot
 1 1.000 -496 -128 -320 -128 -320 -336 -240 -336 4 polygon
+1 1.000 352 0 32 0 2 polygon
+(Halted) {/Helvetica cf} 2 20 0.000 0.800 672 -64 label
+(Halt) {/Helvetica cf} 2 17 0.000 1.000 464 -16 label
+(Register) {/Helvetica cf} 2 17 0.000 1.000 464 -64 label
+0 1.000 368 64 368 -128 560 -128 560 64 4 polygon
+1.000 90.000 368 0 generic::arrowhead
+1 1.000 640 -64 560 -64 2 polygon
+1.000 90.000 656 -64 generic::arrowhead
+1.000 0.000 0.000 scb
+1.000 0.000 480 -128 generic::arrowhead
+(MisalignedAddr) {/Helvetica cf} 2 20 0.000 0.800 544 -240 label
+(MisalignedPC) {/Helvetica cf} 2 20 0.000 0.800 544 -192 label
+1 1.000 480 -144 480 -192 528 -192 3 polygon
+1 1.000 528 -240 448 -240 448 -144 3 polygon
+1.000 0.000 448 -128 generic::arrowhead
+sce
+(MemEn) {/Helvetica cf} 2 16 0.000 0.800 48 16 label
+0.000 0.000 1.000 scb
+1 1.000 -16 48 -16 112 112 112 3 polygon
+sce
+1 1.000 32 -64 352 -64 2 polygon
+1.000 90.000 368 -64 generic::arrowhead
+(System) {/Helvetica cf} 2 16 0.000 0.800 48 -48 label
+(Unhalt) {/Helvetica cf} 2 20 0.000 0.800 672 0 label
+1 1.000 464 64 464 96 2 polygon
+(CLK) {/Helvetica cf} 2 17 0.000 0.800 464 112 label
+1 1.000 448 64 464 48 480 64 3 polygon
+1 1.000 656 0 576 0 2 polygon
+-1.000 270.000 560 0 generic::arrowhead
 pgsave restore showpage
 
 %%Trailer

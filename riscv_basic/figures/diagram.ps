@@ -1,9 +1,9 @@
 %!PS-Adobe-3.0 EPSF-3.0
 %%Title: diagram.ps
-%%Creator: XCircuit v0.0 rev745898004
-%%CreationDate: Mon Jun  3 15:45:27 2024
+%%Creator: XCircuit v0.0 rev-221310956
+%%CreationDate: Tue Jun  4 08:44:31 2024
 %%Pages: 1
-%%BoundingBox: 68 68 1179 586
+%%BoundingBox: 68 68 1155 556
 %%DocumentNeededResources: font Helvetica Times-Roman 
 %%EndComments
 %%BeginProlog
@@ -261,7 +261,7 @@ endgate
 
 /::instr_decom {
 begingate
-0 1.000 -48 224 -48 -352 48 -352 48 224 4 polygon
+0 1.000 -48 144 -48 -272 48 -272 48 144 4 polygon
 (Instruction Decoder) {/Helvetica cf} 2 21 90.000 1.000 0 -64 label
 endgate
 } def
@@ -331,112 +331,101 @@ endgate
 %%PageOrientation: Portrait
 /pgsave save def bop
 1.0000 inchscale
-2.6000 setlinewidth 1728 960 translate
+2.6000 setlinewidth 1664 880 translate
 
-1.000 0.000 -1040 128 ::dff
-1.000 0.000 -784 64 ::imem
+1.000 0.000 -992 128 ::dff
+1.000 0.000 -736 64 ::imem
 1.000 0.000 -96 16 ::regfile
 1.000 0.000 912 16 ::dmem
-1 1.000 -1024 128 -896 128 2 polygon
-(PC) {/Helvetica cf} 2 16 0.000 0.800 -1008 144 label
-(Instr) {/Helvetica cf} 2 16 0.000 0.800 -656 144 label
+1 1.000 -976 128 -848 128 2 polygon
+(PC) {/Helvetica cf} 2 16 0.000 0.800 -960 144 label
+(Instr) {/Helvetica cf} 2 16 0.000 0.800 -608 144 label
 1.000 0.000 496 80 ::alu
-1.000 0.000 -784 -432 ::adder
-(4) {/Helvetica cf} 2 23 0.000 1.000 -880 -480 label
-(PC1) {/Helvetica cf} 2 23 315.000 0.800 -1072 112 label
-1 1.000 -944 128 -944 -384 -832 -384 3 polygon
-1 1.000 -832 -480 -864 -480 2 polygon
-1 1.000 -736 -432 -704 -432 -704 -544 -1536 -544 -1536 128 -1440 128 6 polygon
-1.000 0.000 -944 128 generic::dot
-1 1.000 -1040 192 -1040 160 2 polygon
-(CLK) {/Helvetica cf} 2 17 0.000 0.800 -1040 208 label
+1.000 0.000 -752 -352 ::adder
+(4) {/Helvetica cf} 2 23 0.000 1.000 -848 -400 label
+(PC1) {/Helvetica cf} 2 23 315.000 0.800 -1024 112 label
+1 1.000 -896 128 -896 -304 -800 -304 3 polygon
+1 1.000 -800 -400 -832 -400 2 polygon
+1 1.000 -704 -352 -672 -352 -672 -464 -1440 -464 -1440 96 -1392 96 6 polygon
+1.000 0.000 -896 128 generic::dot
+1 1.000 -992 192 -992 160 2 polygon
+(CLK) {/Helvetica cf} 2 17 0.000 0.800 -992 208 label
 1 1.000 -144 256 -144 224 2 polygon
 (CLK) {/Helvetica cf} 2 17 0.000 0.800 -144 272 label
 1 1.000 848 176 848 144 2 polygon
 (CLK) {/Helvetica cf} 2 17 0.000 0.800 848 192 label
-1 1.000 16 128 208 128 2 polygon
+1 1.000 16 128 288 128 2 polygon
 (RegA) {/Helvetica cf} 2 16 0.000 0.800 32 144 label
 (RegB) {/Helvetica cf} 2 16 0.000 0.800 32 80 label
-1 1.000 288 0 192 0 192 -448 16 -448 4 polygon
-1 1.000 448 16 352 16 2 polygon
+1 1.000 128 0 96 0 96 -368 -320 -368 4 polygon
+1 1.000 448 16 192 16 2 polygon
 (SrcB) {/Helvetica cf} 2 19 0.000 0.800 432 32 label
 (ALURes) {/Helvetica cf} 2 16 0.000 0.800 656 96 label
-(Imm) {/Helvetica cf} 2 16 0.000 0.800 32 -432 label
+(Imm) {/Helvetica cf} 2 16 0.000 0.800 -304 -352 label
 0.000 0.000 1.000 scb
-(SrcBSel) {/Helvetica cf} 2 17 0.000 0.800 320 320 label
+(SrcBSel) {/Helvetica cf} 2 17 0.000 0.800 160 320 label
 (RegWrite) {/Helvetica cf} 2 17 0.000 0.800 -48 320 label
 1 1.000 -48 224 -48 304 2 polygon
-1 1.000 320 48 320 304 2 polygon
+1 1.000 160 48 160 304 2 polygon
 sce
 1.000 0.000 464 -256 ::shifter
 0.000 0.000 1.000 scb
 (ShiftOp) {/Helvetica cf} 2 17 0.000 0.800 448 -160 label
 1 1.000 448 -208 448 -176 2 polygon
 sce
-1 1.000 160 128 160 -240 368 -240 3 polygon
-1.000 0.000 160 128 generic::dot
+1 1.000 240 128 240 -240 368 -240 3 polygon
+1.000 0.000 240 128 generic::dot
 1 1.000 544 -240 704 -240 2 polygon
 (ShiftRes) {/Helvetica cf} 2 28 0.000 0.800 576 -256 label
-1.000 0.000 0.000 scb
+0.180 0.545 0.341 scb
 (RegD) {/Helvetica cf} 2 20 0.000 0.800 1328 -240 label
 sce
-1 1.000 -672 128 -544 128 2 polygon
-1.000 0.000 -496 0 ::instr_decom
-1 1.000 -208 128 -448 128 2 polygon
-(Rs1) {/Helvetica cf} 2 16 0.000 0.800 -432 144 label
-1 1.000 -448 64 -208 64 2 polygon
-(Rs2) {/Helvetica cf} 2 16 0.000 0.800 -432 80 label
-(Rd) {/Helvetica cf} 2 16 0.000 0.800 -432 -128 label
-1 1.000 -448 -144 -208 -144 2 polygon
+1 1.000 -624 128 -480 128 2 polygon
+1.000 0.000 -432 64 ::instr_decom
+1 1.000 -208 128 -384 128 2 polygon
+(Rs1) {/Helvetica cf} 2 16 0.000 0.800 -368 144 label
+1 1.000 -384 64 -208 64 2 polygon
+(Rs2) {/Helvetica cf} 2 16 0.000 0.800 -368 80 label
+(Rd) {/Helvetica cf} 2 16 0.000 0.800 -368 -128 label
+1 1.000 -384 -144 -208 -144 2 polygon
 1 1.000 -208 -192 -272 -192 2 polygon
-1.000 0.000 0.000 scb
+0.180 0.545 0.341 scb
 (RegD) {/Helvetica cf} 2 23 0.000 0.800 -288 -192 label
 sce
 1.000 0.000 1216 -240 ::mux4
-1 1.000 192 -448 832 -448 832 -256 1184 -256 4 polygon
+1 1.000 96 -368 832 -368 832 -256 1184 -256 4 polygon
 0.000 0.000 1.000 scb
 (RegDSel) {/Helvetica cf} 2 17 0.000 0.800 1216 -128 label
 1 1.000 1216 -176 1216 -144 2 polygon
 sce
-1.000 0.000 240 144 ::mux2
-1 1.000 272 144 448 144 2 polygon
+1.000 0.000 320 144 ::mux2
+1 1.000 352 144 448 144 2 polygon
 0.000 0.000 1.000 scb
-(SrcASel) {/Helvetica cf} 2 17 0.000 0.800 240 256 label
-1 1.000 240 176 240 240 2 polygon
+(SrcASel) {/Helvetica cf} 2 17 0.000 0.800 320 256 label
+1 1.000 320 176 320 240 2 polygon
 sce
 (SrcA) {/Helvetica cf} 2 19 0.000 0.800 432 160 label
-1 1.000 208 160 144 160 144 368 -944 368 -944 128 5 polygon
+1 1.000 288 160 240 160 240 368 -896 368 -896 128 5 polygon
 1 1.000 1248 -240 1312 -240 2 polygon
-(ShAmtImm) {/Helvetica cf} 2 16 0.000 0.800 -432 -272 label
-1.000 0.000 128 -272 ::mux2
-1 1.000 160 -272 384 -272 2 polygon
-1 1.000 64 64 64 -256 96 -256 3 polygon
-1.000 0.000 64 64 generic::dot
-1 1.000 96 -288 -448 -288 2 polygon
 (ShAmt) {/Helvetica cf} 2 31 0.000 0.800 384 -288 label
-(4:0) {/Helvetica cf} 2 28 0.000 0.800 80 -192 label
--1.000 180.000 64 -192 generic::arrowhead
-1.000 0.000 64 -192 generic::dot
+(4:0) {/Helvetica cf} 2 28 0.000 0.800 288 -48 label
+-1.000 180.000 272 -48 generic::arrowhead
+1.000 0.000 272 -48 generic::dot
 0.000 0.000 1.000 scb
-(ShAmtSel) {/Helvetica cf} 2 20 0.000 0.800 256 -368 label
-1 1.000 128 -304 128 -368 240 -368 3 polygon
 (ALUFunc) {/Helvetica cf} 2 17 0.000 0.800 512 256 label
 1 1.000 512 160 512 240 2 polygon
 sce
-(Imm) {/Helvetica cf} 2 17 0.000 1.000 -96 -432 label
-(Decoder) {/Helvetica cf} 2 17 0.000 1.000 -96 -480 label
-0 1.000 -208 -384 -208 -512 16 -512 16 -384 4 polygon
+(Imm) {/Helvetica cf} 2 17 0.000 1.000 -432 -352 label
+(Decoder) {/Helvetica cf} 2 17 0.000 1.000 -432 -400 label
+0 1.000 -544 -304 -544 -432 -320 -432 -320 -304 4 polygon
 0.000 0.000 1.000 scb
-(ImmSel) {/Helvetica cf} 2 17 0.000 0.800 -96 -336 label
-1 1.000 -96 -384 -96 -352 2 polygon
+(ImmSel) {/Helvetica cf} 2 17 0.000 0.800 -432 -256 label
+1 1.000 -432 -304 -432 -272 2 polygon
 sce
-1.000 0.000 192 -448 generic::dot
-1.000 0.000 320 16 ::mux2
-1 1.000 16 64 192 64 192 32 288 32 4 polygon
+1.000 0.000 96 -368 generic::dot
+1.000 0.000 160 16 ::mux2
 1 1.000 576 80 800 80 2 polygon
 1 1.000 640 80 640 -208 704 -208 3 polygon
-1 1.000 800 -112 64 -112 2 polygon
-1.000 0.000 64 -112 generic::dot
 0.000 0.000 1.000 scb
 1 1.000 928 144 928 224 2 polygon
 (MemWrite) {/Helvetica cf} 2 17 0.000 0.800 928 240 label
@@ -448,30 +437,30 @@ sce
 1 1.000 1008 144 1008 176 2 polygon
 (MemSize) {/Helvetica cf} 2 17 0.000 0.800 1008 192 label
 sce
-1 1.000 -608 128 -608 -448 -208 -448 3 polygon
-1.000 0.000 -608 128 generic::dot
+1 1.000 -576 128 -576 -368 -544 -368 3 polygon
+1.000 0.000 -576 128 generic::dot
 1.000 0.000 736 -224 ::mux2
-1 1.000 640 80 640 400 -1376 400 -1376 144 -1344 144 5 polygon
+1 1.000 640 80 640 400 -1328 400 -1328 144 -1296 144 5 polygon
 1 1.000 768 -224 1184 -224 2 polygon
-(PC4) {/Helvetica cf} 2 16 0.000 0.800 -720 -416 label
+(PC4) {/Helvetica cf} 2 16 0.000 0.800 -688 -336 label
 (ExecRes) {/Helvetica cf} 2 16 0.000 0.800 784 -208 label
 0.000 0.000 1.000 scb
-1 1.000 -1312 160 -1312 224 2 polygon
-(Jump) {/Helvetica cf} 2 17 0.000 0.800 -1312 240 label
+1 1.000 -1264 160 -1264 224 2 polygon
+(Jump) {/Helvetica cf} 2 17 0.000 0.800 -1264 240 label
 sce
-1.000 0.000 304 -656 ::adder
-1 1.000 192 -448 192 -608 256 -608 3 polygon
-1 1.000 -944 -384 -944 -704 256 -704 3 polygon
-1 1.000 352 -656 416 -656 416 -768 -1504 -768 -1504 96 -1440 96 6 polygon
-1 1.000 -704 -544 864 -544 864 -288 1184 -288 4 polygon
-1.000 0.000 -704 -544 generic::dot
-1.000 0.000 -944 -384 generic::dot
-(PCBranch) {/Helvetica cf} 2 16 0.000 0.800 368 -640 label
--1.000 180.000 -1312 128 ::mux2
-1.000 0.000 -1408 112 ::mux2
-1 1.000 -1376 112 -1344 112 2 polygon
-(PC3) {/Helvetica cf} 2 23 315.000 0.800 -1360 80 label
-1 1.000 -1408 144 -1408 592 1168 592 1168 512 1120 512 5 polygon
+1.000 0.000 -96 -576 ::adder
+1 1.000 -208 -368 -208 -528 -144 -528 3 polygon
+1 1.000 -896 -304 -896 -624 -144 -624 3 polygon
+1 1.000 -48 -576 16 -576 16 -688 -1472 -688 -1472 128 -1392 128 6 polygon
+1 1.000 -672 -464 864 -464 864 -288 1184 -288 4 polygon
+1.000 0.000 -672 -464 generic::dot
+1.000 0.000 -896 -304 generic::dot
+(PCBranch) {/Helvetica cf} 2 16 0.000 0.800 -32 -560 label
+-1.000 180.000 -1264 128 ::mux2
+-1.000 180.000 -1360 112 ::mux2
+1 1.000 -1328 112 -1296 112 2 polygon
+(PC3) {/Helvetica cf} 2 23 315.000 0.800 -1312 80 label
+1 1.000 -1360 144 -1360 592 1168 592 1168 512 1120 512 5 polygon
 1.000 0.000 1072 512 digital::and
 0.000 0.000 1.000 scb
 1 1.000 1008 528 944 528 2 polygon
@@ -495,11 +484,22 @@ sce
 1 1.000 832 464 768 464 2 polygon
 sce
 1 1.000 768 400 800 400 800 432 832 432 4 polygon
-(Mask) {/Helvetica cf} 2 21 0.000 1.000 -1168 128 label
-0 1.000 -1232 160 -1232 96 -1104 96 -1104 160 4 polygon
-1 1.000 -1104 128 -1056 128 2 polygon
-1 1.000 -1280 128 -1232 128 2 polygon
-(PC2) {/Helvetica cf} 2 23 315.000 0.800 -1248 112 label
+(Mask) {/Helvetica cf} 2 21 0.000 1.000 -1120 128 label
+0 1.000 -1184 160 -1184 96 -1056 96 -1056 160 4 polygon
+1 1.000 -1056 128 -1008 128 2 polygon
+1 1.000 -1232 128 -1184 128 2 polygon
+(PC2) {/Helvetica cf} 2 23 315.000 0.800 -1200 112 label
+1.000 0.000 0.000 scb
+1 1.000 -1120 96 -1120 32 2 polygon
+(MisalignedPC) {/Helvetica cf} 2 29 0.000 0.800 -1120 16 label
+(MisalignedAddr) {/Helvetica cf} 2 29 0.000 0.800 1008 -368 label
+1 1.000 1008 -160 1008 -352 2 polygon
+sce
+1 1.000 16 64 64 64 64 -112 800 -112 4 polygon
+1 1.000 128 32 64 32 2 polygon
+1.000 0.000 64 32 generic::dot
+1 1.000 272 16 272 -272 384 -272 3 polygon
+1.000 0.000 -208 -368 generic::dot
 pgsave restore showpage
 
 %%Trailer

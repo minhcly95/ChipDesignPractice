@@ -8,6 +8,8 @@
 `define OPCODE_JAL      7'b11_011_11
 `define OPCODE_JALR     7'b11_001_11
 `define OPCODE_BRANCH   7'b11_000_11
+`define OPCODE_MISC     7'b00_011_11
+`define OPCODE_SYSTEM   7'b11_100_11
 
 `define IMM_I           3'b000
 `define IMM_S           3'b001
@@ -19,11 +21,9 @@
 `define SRC_RR          2'b10
 `define SRC_RI          2'b11
 `define SRC_PI          2'b01
+`define SRC_XR          2'bx0
+`define SRC_XI          2'bx1
 `define SRC_X           2'bxx
-
-`define SHAMT_REG       1'b0
-`define SHAMT_IMM       1'b1
-`define SHAMT_X         1'bx
 
 `define EXEC_ALU        5'b0xxx0
 `define EXEC_ADD        5'b10000
@@ -61,59 +61,70 @@ module main_dec(
     output logic src_b_sel,
     output logic alu_set,
     output logic[2:0] alu_op,
-    output logic shamt_sel,
     output logic exec_sel,
     output logic mem_write,
+    output logic mem_en,
     output logic reg_write,
     output logic[1:0] regd_sel,
     output logic jump,
     output logic branch,
     output logic branch_neg,
-    output logic recode
+    output logic recode,
+    output logic system
 );
     logic is_shift;
-    logic[16:0] controls;
+    logic[15:0] controls;
 
     assign is_shift = funct3[1:0] == 2'b01;
     assign recode = (opcode == `OPCODE_OP);
     assign mem_write = (opcode == `OPCODE_STORE);
+    assign mem_en = (opcode == `OPCODE_LOAD) | (opcode == `OPCODE_STORE);
 
-    assign {imm_sel, src_a_sel, src_b_sel, shamt_sel, alu_set, alu_op, exec_sel, reg_write, regd_sel, jump, branch, branch_neg} = controls;
+    assign {imm_sel, src_a_sel, src_b_sel, alu_set, alu_op, exec_sel, reg_write, regd_sel, jump, branch, branch_neg} = controls;
 
     always_comb begin
+        system = 0;
         case (opcode)
             // Reg + imm operations
             `OPCODE_OP_IMM:
-                if (is_shift) controls = {`IMM_X, `SRC_X,  `SHAMT_IMM, `EXEC_SHIFT, `REGD_EXEC, `FLOW_X  };
-                else          controls = {`IMM_I, `SRC_RI, `SHAMT_X,   `EXEC_ALU,   `REGD_EXEC, `FLOW_X  };
+                if (is_shift) controls = {`IMM_I, `SRC_XI, `EXEC_SHIFT, `REGD_EXEC, `FLOW_X  };
+                else          controls = {`IMM_I, `SRC_RI, `EXEC_ALU,   `REGD_EXEC, `FLOW_X  };
             // Reg + reg operations
             `OPCODE_OP:
-                if (is_shift) controls = {`IMM_X, `SRC_X,  `SHAMT_REG, `EXEC_SHIFT, `REGD_EXEC, `FLOW_X  };
-                else          controls = {`IMM_X, `SRC_RR, `SHAMT_X,   `EXEC_ALU,   `REGD_EXEC, `FLOW_X  };
+                if (is_shift) controls = {`IMM_X, `SRC_XR, `EXEC_SHIFT, `REGD_EXEC, `FLOW_X  };
+                else          controls = {`IMM_X, `SRC_RR, `EXEC_ALU,   `REGD_EXEC, `FLOW_X  };
             // Load upper immediate
-            `OPCODE_LUI:      controls = {`IMM_U, `SRC_X,  `SHAMT_X,   `EXEC_X,     `REGD_IMM,  `FLOW_X  };
+            `OPCODE_LUI:      controls = {`IMM_U, `SRC_X,  `EXEC_X,     `REGD_IMM,  `FLOW_X  };
             // Add upper imm to PC
-            `OPCODE_AUIPC:    controls = {`IMM_U, `SRC_PI, `SHAMT_X,   `EXEC_ADD,   `REGD_EXEC, `FLOW_X  };
+            `OPCODE_AUIPC:    controls = {`IMM_U, `SRC_PI, `EXEC_ADD,   `REGD_EXEC, `FLOW_X  };
             // Load
-            `OPCODE_LOAD:     controls = {`IMM_I, `SRC_RI, `SHAMT_X,   `EXEC_ADD,   `REGD_MEM,  `FLOW_X  };
+            `OPCODE_LOAD:     controls = {`IMM_I, `SRC_RI, `EXEC_ADD,   `REGD_MEM,  `FLOW_X  };
             // Store
-            `OPCODE_STORE:    controls = {`IMM_S, `SRC_RI, `SHAMT_X,   `EXEC_ADD,   `REGD_X,    `FLOW_X  };
+            `OPCODE_STORE:    controls = {`IMM_S, `SRC_RI, `EXEC_ADD,   `REGD_X,    `FLOW_X  };
             // Jump and link
-            `OPCODE_JAL:      controls = {`IMM_J, `SRC_PI, `SHAMT_X,   `EXEC_ADD,   `REGD_PC4,  `FLOW_JMP};
-            `OPCODE_JALR:     controls = {`IMM_I, `SRC_RI, `SHAMT_X,   `EXEC_ADD,   `REGD_PC4,  `FLOW_JMP};
+            `OPCODE_JAL:      controls = {`IMM_J, `SRC_PI, `EXEC_ADD,   `REGD_PC4,  `FLOW_JMP};
+            `OPCODE_JALR:     controls = {`IMM_I, `SRC_RI, `EXEC_ADD,   `REGD_PC4,  `FLOW_JMP};
             // Branch
             `OPCODE_BRANCH:
                 case (funct3)
-                    `BEQ:     controls = {`IMM_B, `SRC_RR, `SHAMT_X,   `EXEC_SUB,   `REGD_X,    `FLOW_BZ };
-                    `BNE:     controls = {`IMM_B, `SRC_RR, `SHAMT_X,   `EXEC_SUB,   `REGD_X,    `FLOW_BNZ};
-                    `BLT:     controls = {`IMM_B, `SRC_RR, `SHAMT_X,   `EXEC_SLT,   `REGD_X,    `FLOW_BNZ};
-                    `BGE:     controls = {`IMM_B, `SRC_RR, `SHAMT_X,   `EXEC_SLT,   `REGD_X,    `FLOW_BZ };
-                    `BLTU:    controls = {`IMM_B, `SRC_RR, `SHAMT_X,   `EXEC_SLTU,  `REGD_X,    `FLOW_BNZ};
-                    `BGEU:    controls = {`IMM_B, `SRC_RR, `SHAMT_X,   `EXEC_SLTU,  `REGD_X,    `FLOW_BZ };
-                    default:  controls = {`IMM_X, `SRC_X,  `SHAMT_X,   `EXEC_X,     `REGD_X,    `FLOW_X  };
+                    `BEQ:     controls = {`IMM_B, `SRC_RR, `EXEC_SUB,   `REGD_X,    `FLOW_BZ };
+                    `BNE:     controls = {`IMM_B, `SRC_RR, `EXEC_SUB,   `REGD_X,    `FLOW_BNZ};
+                    `BLT:     controls = {`IMM_B, `SRC_RR, `EXEC_SLT,   `REGD_X,    `FLOW_BNZ};
+                    `BGE:     controls = {`IMM_B, `SRC_RR, `EXEC_SLT,   `REGD_X,    `FLOW_BZ };
+                    `BLTU:    controls = {`IMM_B, `SRC_RR, `EXEC_SLTU,  `REGD_X,    `FLOW_BNZ};
+                    `BGEU:    controls = {`IMM_B, `SRC_RR, `EXEC_SLTU,  `REGD_X,    `FLOW_BZ };
+                    default:  controls = {`IMM_X, `SRC_X,  `EXEC_X,     `REGD_X,    `FLOW_X  };
                 endcase
+            // Fence (NOP)
+            `OPCODE_MISC:     controls = {`IMM_X, `SRC_X,  `EXEC_X,     `REGD_X,    `FLOW_X  };
+            // System
+            `OPCODE_SYSTEM: begin
+                system = 1;   controls = {`IMM_X, `SRC_X,  `EXEC_X,     `REGD_X,    `FLOW_X  };
+            end
             // Invalid
-            default:          controls = {`IMM_X, `SRC_X,  `SHAMT_X,   `EXEC_X,     `REGD_X,    `FLOW_X  };
+            default: begin
+                system = 1;   controls = {`IMM_X, `SRC_X,  `EXEC_X,     `REGD_X,    `FLOW_X  };
+            end
         endcase
     end
     

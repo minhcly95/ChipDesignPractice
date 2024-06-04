@@ -1,8 +1,9 @@
-rtl/common/flopr.sv
+rtl/common/floper.sv
 rtl/common/mux2.sv
 rtl/common/mux4.sv
 rtl/controller/alu_dec.sv
 rtl/controller/controller.sv
+rtl/controller/halt_reg.sv
 rtl/controller/main_dec.sv
 rtl/datapath/dmem/addr_dec.sv
 rtl/datapath/dmem/dmem_ctrl.sv

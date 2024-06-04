@@ -3,6 +3,8 @@ module riscv #(
 )(
     input logic clk,
     input logic reset,
+    output logic halted,
+    input logic unhalt,
     // I-mem
     output logic[31:0] pc,
     input logic[31:0] instr,
@@ -23,7 +25,6 @@ module riscv #(
     logic src_a_sel;
     logic src_b_sel;
     logic[2:0] alu_func;
-    logic shamt_sel;
     logic[1:0] shift_op;
     logic exec_sel;
     logic mem_write;
@@ -33,6 +34,10 @@ module riscv #(
     logic jump;
     logic branch;
     logic branch_neg;
+
+    // Exceptions
+    logic misaligned_pc;
+    logic misaligned_addr;
 
     // ---------------- Structure --------------------
     datapath #(BootVector) dp(.*);

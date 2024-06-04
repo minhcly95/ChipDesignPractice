@@ -242,4 +242,9 @@ bgeu2:
     bgeu  x1, x4, bgeu3
     sb    x2, 259(x31)       # Should skip
 bgeu3:                       # Should be 0x00e30017
+    # ---------------- FENCE ------------------
+    fence
+    sw    x1, 260(x31)       # Should be 0xbcfec832
+    # ---------------- ECALL ------------------
     ecall
+

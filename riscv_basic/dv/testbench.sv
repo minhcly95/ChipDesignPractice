@@ -1,6 +1,10 @@
+`define BASIC_TEST_SIZE 66
+
 module testbench();
     logic clk;
     logic reset;
+    logic halted;
+    logic unhalt;
     logic[31:0] pc;
     logic[31:0] instr;
     logic[31:0] d_addr;
@@ -8,7 +12,7 @@ module testbench();
     logic[3:0] d_wstrb;
     logic[31:0] d_rdata;
 
-    logic[31:0] basic_test_results[65];
+    logic[31:0] basic_test_results[`BASIC_TEST_SIZE];
 
     // ------------------ Device under test --------------------
     riscv dut(.*);
@@ -20,15 +24,29 @@ module testbench();
     // --------------------- Main program ----------------------
     initial begin
         #1;
+        $display("-------- Basic test started ---------");
         imem.load("basic_test");
         reset_dut();
-        #2000;
-        for (int i = 0; i < 65; i++) begin
+        wait_halt();
+        for (int i = 0; i < `BASIC_TEST_SIZE; i++) begin
             if (dmem.mem[i] !== basic_test_results[i])
             $display("Wrong value at addr %3d: %8h (expected %8h)", i * 4, dmem.mem[i], basic_test_results[i]);
         end
+        $display("--------- Basic test done -----------");
         $finish;
     end
+
+    // ------------------------ Tasks --------------------------
+    task reset_dut();
+        reset = 1;
+        unhalt = 0;
+        #20;
+        reset = 0;
+    endtask
+
+    task wait_halt();
+        @(posedge halted);
+    endtask
 
     // ---------------------- Data load ------------------------
     initial begin
@@ -47,10 +65,4 @@ module testbench();
 		$dumpvars(0, testbench); 
     end
 
-    task reset_dut();
-        reset = 1;
-        #20;
-        reset = 0;
-    endtask
-    
 endmodule

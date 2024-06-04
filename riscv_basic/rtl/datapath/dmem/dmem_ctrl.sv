@@ -9,7 +9,9 @@ module dmem_ctrl(
     output logic[31:0] mem_addr,
     output logic[31:0] mem_wdata,
     output logic[3:0] mem_wstrb,
-    input logic[31:0] mem_rdata
+    input logic[31:0] mem_rdata,
+    // Exception
+    output logic misaligned_addr
 );
     logic[1:0] byte_offset;
     logic[3:0] lanes;
@@ -21,4 +23,5 @@ module dmem_ctrl(
     read_shifter read_shifter(mem_rdata, lanes, mem_size[2], rd);
 
     assign mem_wstrb = lanes & {4{mem_write}};
+    assign misaligned_addr = (lanes == 4'h0);
 endmodule

@@ -3,6 +3,7 @@ module datapath #(
 )(
     input logic clk,
     input logic reset,
+    input logic halted,
     // I-mem
     output logic[31:0] pc,
     input logic[31:0] instr,
@@ -16,7 +17,6 @@ module datapath #(
     input logic src_a_sel,
     input logic src_b_sel,
     input logic[2:0] alu_func,
-    input logic shamt_sel,
     input logic[1:0] shift_op,
     input logic exec_sel,
     input logic mem_write,
@@ -25,7 +25,10 @@ module datapath #(
     input logic[1:0] regd_sel,
     input logic jump,
     input logic branch,
-    input logic branch_neg
+    input logic branch_neg,
+    // Exceptions
+    output logic misaligned_pc,
+    output logic misaligned_addr
 );
     // ----------------- Signals ---------------------
     // Fetch
@@ -39,7 +42,6 @@ module datapath #(
     logic[4:0] rs1;
     logic[4:0] rs2;
     logic[4:0] rd;
-    logic[4:0] shamt_imm;
     logic[31:0] imm;
 
     // Execute
@@ -61,15 +63,15 @@ module datapath #(
 
     // ---------------- Structure --------------------
     // Fetch
-    flopr #(32, BootVector) pc_reg(clk, reset, pc1, pc);
+    floper #(32, BootVector) pc_reg(clk, reset, ~halted, pc1, pc);
     pc_adder pc_adder(pc, pc4);
     mux2 #(32) pc_mux2(pc4, pc_branch, pc_sel, pc3);
     mux2 #(32) pc_mux1(pc3, alu_res, jump, pc2);
-    pc_mask pc_mask(pc2, pc1);
+    pc_mask pc_mask(pc2, pc1, misaligned_pc);
 
     // Decode
-    instr_dec instr_dec(instr, rd, rs1, rs2, shamt_imm);
-    reg_file reg_file(clk, rs1, reg_a, rs2, reg_b, rd, reg_d, reg_write);
+    instr_dec instr_dec(instr, rd, rs1, rs2);
+    reg_file reg_file(clk, rs1, reg_a, rs2, reg_b, rd, reg_d, reg_write & ~halted);
     imm_dec imm_dec(instr, imm_sel, imm);
 
     // Execute
@@ -77,7 +79,7 @@ module datapath #(
     mux2 #(32) src_b_mux(reg_b, imm, src_b_sel, src_b);
     alu alu(src_a, src_b, alu_func, alu_res);
 
-    mux2 #(5) shamt_mux(reg_b[4:0], shamt_imm, shamt_sel, shamt);
+    assign shamt = src_b[4:0];
     shifter shifter(reg_a, shamt, shift_op, shift_res);
 
     mux2 #(32) exec_mux(alu_res, shift_res, exec_sel, exec_res);
@@ -91,8 +93,9 @@ module datapath #(
     // Memory
     dmem_ctrl dmem_ctrl(
         alu_res, reg_b, mem_res,
-        mem_write, mem_size,
-        d_addr, d_wdata, d_wstrb, d_rdata
+        mem_write & ~halted, mem_size,
+        d_addr, d_wdata, d_wstrb, d_rdata,
+        misaligned_addr
     );
 
     // Write back
