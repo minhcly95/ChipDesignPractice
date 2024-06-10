@@ -1,4 +1,4 @@
-# RISC-V Pipelined Processor (In Progress)
+# RISC-V Pipelined Processor
 
 This is a pipelined implementation of the RISC-V architecture without any extension.
 The pipeline consists of 5 stages: Fetch (F), Decode (D), Execute (E), Memory (M), and Write-back (W).
@@ -101,21 +101,21 @@ The meaning of the colors of the wires:
 
 | `OpCode`          | `funct3`     | `RxValid`   | `ImmSel` | `SrcSel` | `ALSUFunc`    | `ExecSel`  | `{JumpD,FlowCtrl}` |
 |-------------------|--------------|-------------|----------|----------|---------------|------------|--------------------|
-| `0010011(OP-IMM)` | `x01(SHIFT)` | `10_1(A-D)` | `000(I)` | `01(RI)` | `g_fff(F37)`  | `00(ALSU)` | `0_000(PC4)`       |
-| `0010011(OP-IMM)` | Others       | `10_1(A-D)` | `000(I)` | `01(RI)` | `0_fff(F3)`   | `00(ALSU)` | `0_000(PC4)`       |
-| `0110011(OP)`     |              | `11_1(ABD)` |          | `00(RR)` | `g_fff(F37)`  | `00(ALSU)` | `0_000(PC4)`       |
+| `0010011(OP-IMM)` | `x01(SHIFT)` | `01_1(-AD)` | `000(I)` | `10(RI)` | `g_fff(F37)`  | `00(ALSU)` | `0_000(PC4)`       |
+| `0010011(OP-IMM)` | Others       | `01_1(-AD)` | `000(I)` | `10(RI)` | `0_fff(F3)`   | `00(ALSU)` | `0_000(PC4)`       |
+| `0110011(OP)`     |              | `11_1(BAD)` |          | `00(RR)` | `g_fff(F37)`  | `00(ALSU)` | `0_000(PC4)`       |
 | `0110111(LUI)`    |              | `00_1(--D)` | `010(U)` |          |               | `01(IMM)`  | `0_000(PC4)`       |
 | `0010111(AUIPC)`  |              | `00_1(--D)` | `010(U)` | `11(PI)` | `0_000(ADD)`  | `00(ALSU)` | `0_000(PC4)`       |
-| `0000011(LOAD)`   |              | `10_1(A-D)` | `000(I)` | `01(RI)` | `0_000(ADD)`  | `00(ALSU)` | `0_000(PC4)`       |
-| `0100011(STORE)`  |              | `11_0(AB-)` | `001(S)` | `01(RI)` | `0_000(ADD)`  | `00(ALSU)` | `0_000(PC4)`       |
+| `0000011(LOAD)`   |              | `01_1(-AD)` | `000(I)` | `10(RI)` | `0_000(ADD)`  | `00(ALSU)` | `0_000(PC4)`       |
+| `0100011(STORE)`  |              | `11_0(BA-)` | `001(S)` | `10(RI)` | `0_000(ADD)`  | `00(ALSU)` | `0_000(PC4)`       |
 | `1101111(JAL)`    |              | `00_1(--D)` | `100(J)` |          |               | `10(PC4)`  | `1_000(JUMP_D)`    |
-| `1100111(JALR)`   |              | `10_1(A-D)` | `000(I)` | `01(RI)` | `0_000(ADD)`  | `10(PC4)`  | `0_100(JUMP_E)`    |
-| `1100011(BRANCH)` | `000(BEQ)`   | `11_0(AB-)` | `101(B)` | `00(RR)` | `1_000(SUB)`  |            | `0_010(BRANCH_Z)`  |
-| `1100011(BRANCH)` | `001(BNE)`   | `11_0(AB-)` | `101(B)` | `00(RR)` | `1_000(SUB)`  |            | `0_011(BRANCH_NZ)` |
-| `1100011(BRANCH)` | `100(BLT)`   | `11_0(AB-)` | `101(B)` | `00(RR)` | `0_010(SLT)`  |            | `0_011(BRANCH_NZ)` |
-| `1100011(BRANCH)` | `101(BGE)`   | `11_0(AB-)` | `101(B)` | `00(RR)` | `0_010(SLT)`  |            | `0_010(BRANCH_Z)`  |
-| `1100011(BRANCH)` | `110(BLTU)`  | `11_0(AB-)` | `101(B)` | `00(RR)` | `0_011(SLTU)` |            | `0_011(BRANCH_NZ)` |
-| `1100011(BRANCH)` | `111(BGEU)`  | `11_0(AB-)` | `101(B)` | `00(RR)` | `0_011(SLTU)` |            | `0_010(BRANCH_Z)`  |
+| `1100111(JALR)`   |              | `01_1(-AD)` | `000(I)` | `10(RI)` | `0_000(ADD)`  | `10(PC4)`  | `0_100(JUMP_E)`    |
+| `1100011(BRANCH)` | `000(BEQ)`   | `11_0(BA-)` | `101(B)` | `00(RR)` | `1_000(SUB)`  |            | `0_010(BRANCH_Z)`  |
+| `1100011(BRANCH)` | `001(BNE)`   | `11_0(BA-)` | `101(B)` | `00(RR)` | `1_000(SUB)`  |            | `0_011(BRANCH_NZ)` |
+| `1100011(BRANCH)` | `100(BLT)`   | `11_0(BA-)` | `101(B)` | `00(RR)` | `0_010(SLT)`  |            | `0_011(BRANCH_NZ)` |
+| `1100011(BRANCH)` | `101(BGE)`   | `11_0(BA-)` | `101(B)` | `00(RR)` | `0_010(SLT)`  |            | `0_010(BRANCH_Z)`  |
+| `1100011(BRANCH)` | `110(BLTU)`  | `11_0(BA-)` | `101(B)` | `00(RR)` | `0_011(SLTU)` |            | `0_011(BRANCH_NZ)` |
+| `1100011(BRANCH)` | `111(BGEU)`  | `11_0(BA-)` | `101(B)` | `00(RR)` | `0_011(SLTU)` |            | `0_010(BRANCH_Z)`  |
 | `0001111(MISC)`   |              | `00_0(---)` |          |          |               |            | `0_000(PC4)`       |
 | `1110011(SYSTEM)` |              | `00_0(---)` |          |          |               |            | `0_000(PC4)`       |
 | Others            |              | `00_0(---)` |          |          |               |            | `0_000(PC4)`       |
@@ -130,7 +130,7 @@ The meaning of the colors of the wires:
 
 ### Hazard Unit
 `Hazard Unit` detects RAW hazards on the register file, then returns the controls for the forwarding paths
-or stalls the pipeline if necessary. See Fwd Mux for the meanings of the bits in `FwdSelD`.
+or stalls the pipeline if necessary. See [Fwd Mux](#fwd-mux) for the meanings of the bits in `FwdSelD`.
 
 ```systemverilog
 always_comb begin
@@ -138,14 +138,14 @@ always_comb begin
     Stall = 1'b0;
 
     if (RdValidE & RdE != 5'd0) begin
-        FwdSelD[0] = Rs1 == RdE;
-        FwdSelD[1] = Rs2 == RdE;
+        FwdSelD[0] = RsValid[0] & (Rs1 == RdE);
+        FwdSelD[1] = RsValid[1] & (Rs2 == RdE);
         Stall = MemReadE & (FwdSelD[0] | FwdSelD[1]);
     end
 
     if (RdValidM & RdM != 5'd0) begin
-        FwdSelD[2] = Rs1 == RdM;
-        FwdSelD[3] = Rs2 == RdM;
+        FwdSelD[2] = RsValid[0] & (Rs1 == RdM);
+        FwdSelD[3] = RsValid[1] & (Rs2 == RdM);
     end
 end
 ```
